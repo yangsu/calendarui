@@ -1,8 +1,10 @@
 forma.Views.applicationView = Backbone.View.extend({
   initialize: function () {
-    console.log();
+    var date = moment();
+    var month = this.days(date.year(), date.month());
     this.calendar = new forma.Views.tableView({
-    }).render();
+      el: '#calendar'
+    }).setMonthData(month).render();
     this.$el.append(this.calendar.$el);
   },
   monthToDay: {
@@ -23,7 +25,7 @@ forma.Views.applicationView = Backbone.View.extend({
     var numdays = (year % 4 == 0 && month == 2) ? 29 : this.monthToDay[month];
     var days = _.range(1, numdays + 1);
     return _.map(days, function(day) {
-      return new Date([year, month, day]);
+      return moment(new Date([year, month, day]));
     });
   },
   render: function () {

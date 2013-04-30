@@ -9,7 +9,7 @@ window.forma = {
     console.log('Hello from Backbone!');
 
     var main = new forma.Views.applicationView({
-      id: '#calendar'
+      el: '#main'
     });
     main.render();
   },
