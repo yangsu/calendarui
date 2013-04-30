@@ -9,7 +9,24 @@ forma.Views.tableView = Backbone.View.extend({
     var rows = _.chain(month)
       .groupBy(function (day) {
         return day.week();
-      }).map(function (days, week) {
+      })
+      .each(function (days, week, list) {
+        var daysMissing = 7 - days.length;
+        if (daysMissing) {
+          var date = days[0];
+          var day = date.day();
+          if (day == 0) {
+            _.each(_.range(1, daysMissing + 1), function(offset) {
+              days.push(moment(date).add('days', offset));
+            });
+          } else {
+            _.each(_.range(1, daysMissing + 1), function(offset) {
+              days.unshift(moment(date).subtract('days', offset));
+            });
+          }
+        }
+      })
+      .map(function (days, week) {
         return new forma.Views.rowView({
           model: days
         }).render();
