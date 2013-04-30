@@ -4,6 +4,7 @@ window.forma = {
   Collections: {},
   Views: {},
   Routers: {},
+  Templates: {},
   init: function() {
     console.log('Hello from Backbone!');
 
@@ -13,7 +14,7 @@ window.forma = {
     main.render();
   },
   template: function(templateName) {
-    var path = '/javascripts/templates/' + templateName + '.html';
+    var path = '/scripts/templates/' + templateName + '.html';
 
     return (function(context) {
       if (!forma.Templates[path]) {

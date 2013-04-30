@@ -1,6 +1,9 @@
 forma.Views.applicationView = Backbone.View.extend({
   initialize: function () {
-    console.log(this.days(2013, 1));
+    console.log();
+    this.calendar = new forma.Views.tableView({
+    }).render();
+    this.$el.append(this.calendar.$el);
   },
   monthToDay: {
     1: 31,

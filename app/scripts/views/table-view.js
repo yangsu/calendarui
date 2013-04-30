@@ -1,10 +1,9 @@
-forma.Views.applicationView = Backbone.View.extend({
+forma.Views.tableView = Backbone.View.extend({
 
   template: forma.template('table'),
   initialize: function () {
     this.rows = [];
-    this.$el.html(this.template(this.model.toJSON()));
-
+    this.$el.html(this.template());
   },
   render: function () {
     var that = this;
