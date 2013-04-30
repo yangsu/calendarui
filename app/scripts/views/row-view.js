@@ -4,12 +4,23 @@ forma.Views.rowView = Backbone.View.extend({
   initialize: function (data) {
     this.cells = _.map(this.model, function (day) {
       return new forma.Views.cellView({
-        date: day
+        model: new Backbone.Model({
+          date: day
+        })
       }).render();
     });
 
     this.$el.children().remove().end()
       .append(_.map(this.cells, function(r) { return r.$el; }));
+  },
+  setRowData: function(row) {
+    console.log(row);
+    if (row) {
+      _.each(this.cells, function(cell, i) {
+        if (row[i])
+          cell.model.set('date', row[i]);
+      });
+    }
   },
   render: function () {
     var that = this;

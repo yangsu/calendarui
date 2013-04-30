@@ -5,8 +5,9 @@ forma.Views.applicationView = Backbone.View.extend({
     this.month = date.month();
 
     this.calendar = new forma.Views.tableView({
-      el: '#calendar'
-    }).setMonthData(this.genMonth()).render();
+      el: '#calendar',
+      model: this.genMonth()
+    }).render();
 
     this.$el.append(this.calendar.$el);
   },
@@ -43,22 +44,22 @@ forma.Views.applicationView = Backbone.View.extend({
       this.year--;
     }
     this.month = (11 + this.month) % 12;
-    console.log(this.year, this.month);
+    // console.log(this.year, this.month);
   },
   nextMonth: function() {
     if (this.month == 11) {
       this.year++;
     }
     this.month = (this.month + 1) % 12;
-    console.log(this.year, this.month);
+    // console.log(this.year, this.month);
   },
   onPrevious: function (e) {
     this.prevMonth();
-    console.log(this.genMonth());
+    this.calendar.setMonthData(this.genMonth());
   },
   onNext: function (e) {
     this.nextMonth();
-    console.log(this.genMonth());
+    this.calendar.setMonthData(this.genMonth());
   },
   render: function () {
     // this.$el.html(this.template(this.model.toJSON()));

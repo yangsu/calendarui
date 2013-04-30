@@ -3,11 +3,11 @@ forma.Views.cellView = Backbone.View.extend({
   template: forma.template('cell'),
   tagName: 'td',
   initialize: function (data) {
-    this.$el.html(this.template({
-      date: data.date
-    }));
+    this.model.on('change', this.render, this);
   },
   render: function () {
+    // console.log(this.model.toJSON());
+    this.$el.html(this.template(this.model.toJSON()));
     return this;
   }
 });

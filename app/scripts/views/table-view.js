@@ -3,12 +3,23 @@ forma.Views.tableView = Backbone.View.extend({
   template: forma.template('table'),
   initialize: function () {
     this.$el.html(this.template());
+
+    this.rows = _.map(this.groupByWeek(this.model), function (days, week) {
+      return new forma.Views.rowView({
+        model: days
+      }).render();
+    });
+
+    var childrenEls = _.map(this.rows, function(r) { return r.$el; });
+
+    this.$('tbody').children().remove().end()
+      .append(childrenEls);
   },
-  setMonthData: function (month) {
-    this.month = month;
-    var rows = _.chain(month)
+  groupByWeek: function(month) {
+    var firstWeek = month[0].week();
+    var returnVal = _.chain(month)
       .groupBy(function (day) {
-        return day.week();
+        return day.week() - firstWeek;
       })
       .each(function (days, week, list) {
         var daysMissing = 7 - days.length;
@@ -26,18 +37,28 @@ forma.Views.tableView = Backbone.View.extend({
           }
         }
       })
-      .map(function (days, week) {
-        return new forma.Views.rowView({
-          model: days
-        }).render();
-      }).value();
+      .values()
+      .value();
 
-    var childrenEls = _.map(rows, function(r) { return r.$el; });
+    var lastWeek = returnVal[returnVal.length - 1];
+    var lastDate = lastWeek[lastWeek.length - 1];
 
-    this.$('tbody').children().remove().end()
-      .append(childrenEls);
+    if (returnVal.length < 6) {
+      returnVal.push(_.map(_.range(1, 8), function(offset) {
+        return moment(lastDate).add('days', offset)
+      }));
+    }
 
-    this.rows = rows;
+    return returnVal;
+  },
+  setMonthData: function (month) {
+    var model = this.groupByWeek(month);
+
+    _.each(this.rows, function(row, i) {
+      row.setRowData(model[i]);
+    });
+
+    this.model = model;
     return this;
   },
   render: function () {
