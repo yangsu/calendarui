@@ -9,7 +9,7 @@ forma.Views.ItemView = Backbone.View.extend({
     'click': 'onClick'
   },
   onClick: function(e) {
-    console.log('click', this.model.toReadable());
+    this.$('.popover').popover('show');
   },
   render: function () {
     this.$el.html(this.template(this.model.toReadable()));

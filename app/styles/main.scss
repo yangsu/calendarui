@@ -4,5 +4,15 @@
   td {
     width: 100px;
     height: 100px;
+    .events {
+      margin: 0;
+      .label-info:hover {
+        background-color: #61a7ca;
+      }
+      li {
+        display: block;
+        position: relative;
+      }
+    }
   }
 }
