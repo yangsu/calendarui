@@ -1,0 +1,20 @@
+/* Will be compiled down to a single stylesheet with your sass files */
+
+.table {
+  td {
+    width: 100px;
+    height: 100px;
+    .events {
+      margin: 0;
+      height: 50%;
+      .label-info:hover {
+        cursor: pointer;
+        background-color: #61a7ca;
+      }
+      li {
+        display: block;
+        position: relative;
+      }
+    }
+  }
+}
