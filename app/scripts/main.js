@@ -62,7 +62,7 @@ window.forma = {
     forma.cidToModel = {};
 
     forma.data = _.map(data.rows, function(row) {
-      var model = new forma.Models.RowModel(row);
+      var model = new forma.Models.DataRowModel(row);
       forma.cidToModel[model.cid] = model;
       return model;
     });
