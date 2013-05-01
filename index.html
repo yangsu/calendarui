@@ -1,55 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title></title>
-        <meta name="description" content=""/>
-        <meta name="viewport" content="width=device-width"/>
-        <link rel="stylesheet" href="styles/ui-lightness/8971f056.jquery-ui-1.10.2.custom.css"/>
-        <link rel="stylesheet" href="styles/df325478.bootstrap.min.css"/>
-        <link rel="stylesheet" href="styles/10e3dd07.main.css"/>
-
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Calendar UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="scripts/vendor/modernizr.js"></script>
     </head>
     <body>
-    <div class="container" id="main">
-        <div id="control">
-            <button id="today" class="btn">Today</button>
-            <button id="prev" class="btn">Previous</button>
-            <button id="next" class="btn">Next</button>
-            <span id="info">
-                <span id="month"></span>
-                <span id="year"></span>
-            </span>
-            <span class="pull-right">
-                Display by:
-                <select name="datekey" id="option"></select>
-            </span>
-        </div>
-        <div id="calendar">
+        <div class="container" id="main">
+            <div id="control">
+                <button id="today" class="btn">Today</button>
+                <button id="prev" class="btn">Previous</button>
+                <button id="next" class="btn">Next</button>
+                <span id="info">
+                    <span id="month"></span>
+                    <span id="year"></span>
+                </span>
+                <span class="pull-right">
+                    Display by:
+                    <select name="datekey" id="option"></select>
+                </span>
+            </div>
+            <div id="calendar"></div>
 
-        </div>
-
-        <div class="modal hide fade" id="createModal">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Create New Item</h3>
-          </div>
-          <div class="modal-body">
-          </div>
+            <div class="modal hide fade" id="createModal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Create New Item</h3>
+                </div>
+                <div class="modal-body"></div>
+            </div>
         </div>
 
-    </div>
         <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
-        <!-- Add your site or application content here -->
-
-        <script src="scripts/9baad291.scripts.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -58,5 +50,11 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-    </body>
+
+        <script src="scripts/vendor.js"></script>
+
+        <script src="scripts/plugins.js"></script>
+
+        <script src="scripts/main.js"></script>
+</body>
 </html>

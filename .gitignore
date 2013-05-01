@@ -1,0 +1,8 @@
+*.sublime-workspace
+.sass-cache
+.tmp
+app/components
+app/scripts/templates.js
+dist
+node_modules
+temp
