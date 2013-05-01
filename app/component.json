@@ -1,0 +1,13 @@
+{
+  "name": "calendarui",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~2.3.0",
+    "jquery": "~1.9.0",
+    "lodash": "~1.2.1",
+    "backbone": "~0.9.10",
+    "modernizr": "~2.6.2",
+    "moment": "~2.0.0"
+  },
+  "devDependencies": {}
+}
