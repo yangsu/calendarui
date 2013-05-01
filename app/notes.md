@@ -32,4 +32,4 @@ Toggle between different months
 ## Tricks
 How many days in a month
 
-Create new events
+Create new eventsg

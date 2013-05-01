@@ -1,11 +1,11 @@
-forma.Views.tableView = Backbone.View.extend({
+forma.Views.TableView = Backbone.View.extend({
 
   template: forma.template('table'),
   initialize: function () {
     this.$el.html(this.template());
 
     this.rows = _.map(this.groupByWeek(this.model), function (days, week) {
-      return new forma.Views.rowView({
+      return new forma.Views.RowView({
         model: days
       }).render();
     });

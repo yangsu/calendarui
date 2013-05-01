@@ -1,9 +1,9 @@
-forma.Views.rowView = Backbone.View.extend({
+forma.Views.RowView = Backbone.View.extend({
 
   tagName: 'tr',
   initialize: function (data) {
     this.cells = _.map(this.model, function (day) {
-      return new forma.Views.cellView({
+      return new forma.Views.CellView({
         model: new Backbone.Model({
           date: day
         })

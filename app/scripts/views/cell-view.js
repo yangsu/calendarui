@@ -1,4 +1,4 @@
-forma.Views.cellView = Backbone.View.extend({
+forma.Views.CellView = Backbone.View.extend({
 
   template: forma.template('cell'),
   tagName: 'td',

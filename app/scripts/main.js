@@ -26,7 +26,7 @@ window.forma = {
       return memo;
     }, {});
 
-    var main = new forma.Views.applicationView({
+    var main = new forma.Views.ApplicationView({
       el: '#main',
       model: new Backbone.Model({
         moment: moment()

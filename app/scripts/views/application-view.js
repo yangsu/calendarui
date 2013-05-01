@@ -1,6 +1,6 @@
-forma.Views.applicationView = Backbone.View.extend({
+forma.Views.ApplicationView = Backbone.View.extend({
   initialize: function () {
-    this.calendar = new forma.Views.tableView({
+    this.calendar = new forma.Views.TableView({
       el: '#calendar',
       model: this.genMonth()
     }).render();
