@@ -7,8 +7,13 @@ forma.Views.CellView = Backbone.View.extend({
       .on('change', this.render, this);
   },
   render: function () {
-    // console.log(this.model.toJSON());
-    this.$el.html(this.template(this.model.toJSON()));
+    var json = {
+      date: this.model.get('date')
+    };
+    json.data = _.map(this.model.get('data'), function(d) {
+      return d.toReadable();
+    });
+    this.$el.html(this.template(json));
     return this;
   }
 });

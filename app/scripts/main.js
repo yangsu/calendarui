@@ -22,7 +22,7 @@ window.forma = {
       }
       var dateStr = date.format('MM-DD-YY');
       memo[dateStr] = memo[dateStr] || [];
-      memo[dateStr].push(item);
+      memo[dateStr].push(new forma.Models.RowModel(item));
       return memo;
     }, {});
 
