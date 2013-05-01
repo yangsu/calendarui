@@ -11,6 +11,7 @@ window.forma = {
   },
   updateItem: function(cid, newDate) {
     var model = forma.cidToModel[cid];
+    if (!model) return;
     var dateStr = newDate.format('MM-DD-YY');
     var rows = forma.dateToData;
     _.each(rows, function(models, date) {
