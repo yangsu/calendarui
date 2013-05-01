@@ -6,7 +6,24 @@ window.forma = {
   Routers: {},
   Templates: {},
   changeDataKey: function(key) {
+    forma.currentDataKey = key;
     forma.dateToData = forma.rows[key];
+  },
+  updateItem: function(cid, newDate) {
+    var model = forma.cidToModel[cid];
+    var dateStr = newDate.format('MM-DD-YY');
+    var rows = forma.dateToData;
+    _.each(rows, function(models, date) {
+      rows[date] = _.without(models, model);
+    });
+    rows[dateStr] = rows[dateStr] || [];
+    rows[dateStr].push(model);
+
+    var oldDate = model.get(forma.currentDataKey);
+    model.set(forma.currentDataKey, oldDate.replace(/\d+\/\d+\/\d+/, newDate.format('MM/DD/YY')));
+
+    forma.main.render();
+
   },
   init: function() {
     forma.dateOptions = {};
@@ -27,8 +44,16 @@ window.forma = {
       options: forma.dateOptions
     }));
 
-    _.each(data.rows, function(item) {
-      var model = new forma.Models.RowModel(item);
+    forma.cidToModel = {};
+
+    forma.data = _.map(data.rows, function(row) {
+      var model = new forma.Models.RowModel(row);
+      forma.cidToModel[model.cid] = model;
+      return model;
+    });
+
+    _.each(forma.data, function(model) {
+      var item = model.toJSON();
 
       _.each(dateKeys, function(key) {
         var date = item[key];
@@ -53,6 +78,8 @@ window.forma = {
       })
     });
     main.render();
+
+    forma.main = main;
 
   },
   template: function(templateName) {

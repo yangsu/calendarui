@@ -5,12 +5,24 @@ forma.Views.CellView = Backbone.View.extend({
   initialize: function (data) {
     this.$el.html(this.template(this.model.toJSON()));
 
+    var that = this;
+
+    this.$el.droppable();
+
     this.model
       .on('change', this.render, this)
       .on('change:date', this.onSetDate, this)
       .on('change:data', this.onSetData, this);
     this.items = [];
 
+  },
+  events: {
+    drop: 'onDrop'
+  },
+  onDrop: function(e) {
+    var cid = $(e.srcElement).data('cid');
+    var date = this.model.get('date');
+    forma.updateItem(cid, date);
   },
   onSetDate: function() {
     this.$('p > strong').html(this.model.get('date').format('MM-DD'));
