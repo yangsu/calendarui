@@ -26,6 +26,16 @@ window.forma = {
     forma.main.render();
 
   },
+  deleteItem: function(model) {
+    _.each(forma.rows, function(rows) {
+      _.each(rows, function(models, date) {
+        rows[date] = _.without(models, model);
+      });
+    });
+    model.destroy();
+    forma.main.render();
+
+  },
   init: function() {
     forma.dateOptions = {};
     forma.rows = {};
