@@ -16,10 +16,10 @@ forma.Views.tableView = Backbone.View.extend({
       .append(childrenEls);
   },
   groupByWeek: function(month) {
-    var firstWeek = month[0].week();
+    var firstWeek = month[0].isoWeek();
     var returnVal = _.chain(month)
       .groupBy(function (day) {
-        return day.week() - firstWeek;
+        return day.isoWeek() - firstWeek;
       })
       .each(function (days, week, list) {
         var daysMissing = 7 - days.length;

@@ -14,7 +14,6 @@ forma.Views.rowView = Backbone.View.extend({
       .append(_.map(this.cells, function(r) { return r.$el; }));
   },
   setRowData: function(row) {
-    console.log(row);
     if (row) {
       _.each(this.cells, function(cell, i) {
         if (row[i])

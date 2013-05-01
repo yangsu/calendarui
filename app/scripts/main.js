@@ -9,7 +9,10 @@ window.forma = {
     console.log('Hello from Backbone!');
 
     var main = new forma.Views.applicationView({
-      el: '#main'
+      el: '#main',
+      model: new Backbone.Model({
+        moment: moment()
+      })
     });
     main.render();
   },
