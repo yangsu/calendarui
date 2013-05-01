@@ -93,20 +93,7 @@ window.forma = {
     }));
   },
   template: function(templateName) {
-    var path = '/scripts/templates/' + templateName + '.html';
-
-    return (function(context) {
-      if (!forma.Templates[path]) {
-
-        $.ajax({
-          url: path,
-          async: false
-        }).then(function(contents) {
-          return forma.Templates[path] = _.template(contents);
-        });
-      }
-      return forma.Templates[path](context);
-    });
+    return JST[templateName];
   }
 };
 

@@ -1,7 +1,8 @@
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
+var path = require('path');
 var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
+  return connect.static(path.resolve(dir));
 };
 
 // # Globbing
@@ -148,6 +149,22 @@ module.exports = function (grunt) {
         }
       }
     },
+    jst: {
+      compile: {
+        options: {
+          prettify: true,
+          namespace: 'JST',
+          processName: function(filename) {
+            return path.basename(filename, path.extname(filename));
+          }
+        },
+        files: {
+          '<%= yeoman.app %>/scripts/templates.js': [
+            '<%= yeoman.app %>/scripts/templates/*.html'
+          ]
+        }
+      }
+    },
     uglify: {
       dist: {
         files: {
@@ -243,6 +260,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'coffee:dist',
+      'jst:compile',
       'compass:server',
       'livereload-start',
       'connect:livereload',
@@ -262,6 +280,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'coffee',
+    'jst:compile',
     'compass:dist',
     'useminPrepare',
     'imagemin',

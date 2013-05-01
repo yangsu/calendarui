@@ -23,7 +23,7 @@ forma.Views.CellView = Backbone.View.extend({
     console.log(e);
   },
   onDrop: function(e) {
-    var cid = $(e.srcElement).data('cid');
+    var cid = $(e.srcElement || e.toElement).data('cid');
     var date = this.model.get('date');
     forma.updateItem(cid, date);
   },
