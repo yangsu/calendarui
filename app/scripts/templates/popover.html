@@ -1,7 +1,7 @@
 <div class="arrow"></div>
 <h3 class="popover-title"><%= arguments[0].Name %></h3>
 <div class="popover-content">
-    <% _.each(arguments[0], function (value, key) {
+    <% _.each(arguments[0], function(value, key) {
         if (!_.isObject(value)) { %>
         <div>
             <strong><%= key %></strong>

@@ -2,17 +2,16 @@ forma.Views.CellView = Backbone.View.extend({
 
   template: forma.template('cell'),
   tagName: 'td',
-  initialize: function (data) {
+  initialize: function(data) {
     this.$el.html(this.template(this.model.toJSON()));
-
-    var that = this;
-
     this.$el.droppable();
+    this.onSetDate();
 
     this.model
       .on('change', this.render, this)
       .on('change:date', this.onSetDate, this)
       .on('change:data', this.onSetData, this);
+
     this.items = [];
 
   },
@@ -43,15 +42,10 @@ forma.Views.CellView = Backbone.View.extend({
       }).render();
     });
 
-    var els = _.map(this.items, function(i) { return i.$el; });
-
-    this.$('.events').append(els);
+    this.$('.events').append(_.pluck(this.items, '$el'));
   },
-  render: function () {
-    _.each(this.items, function (item) {
-      item.render();
-    });
-
+  render: function() {
+    _.invoke(this.items, 'render');
     return this;
   }
 });

@@ -2,8 +2,6 @@ forma.Views.ItemView = Backbone.View.extend({
 
   tagName: 'li',
   template: forma.template('item'),
-  initialize: function (data) {
-  },
   events: {
     'click .label': 'onClick',
     'click .btn': 'onDelete'
@@ -12,19 +10,20 @@ forma.Views.ItemView = Backbone.View.extend({
   onClick: function(e) {
     this.shown = !this.shown;
     if (this.shown) {
-      this.$('.popover').html(forma.template('popover')(this.model.toReadable()))
+      var content = forma.template('popover')(this.model.toReadable());
+      this.$('.popover').html(content);
     }
-    this.$('.label').popover(this.shown ? 'show': 'hide');
+    this.$('.label').popover(this.shown ? 'show' : 'hide');
   },
-  onDelete: function(e){
+  onDelete: function(e) {
     forma.deleteItem(this.model);
   },
-  render: function () {
+  render: function() {
     var ctx = _.extend(this.model.toReadable(), {
       cid: this.model.cid
     });
     this.$el.html(this.template(ctx));
-    this.$( ".draggable" ).draggable({
+    this.$('.draggable').draggable({
       // revert: true,
       snap: '.events'
     });

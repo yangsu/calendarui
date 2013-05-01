@@ -1,101 +1,96 @@
 
 window.forma = {
   Models: {},
-  Collections: {},
   Views: {},
-  Routers: {},
   Templates: {},
-  changeDataKey: function(key) {
-    forma.currentDataKey = key;
-    forma.dateToData = forma.rows[key];
+  dateKeyString: function(date) {
+    return date.format('MM-DD-YY');
+  },
+  changeColumnId: function(columnId) {
+    forma.currentColumnId = columnId;
+    forma.dateToRow = forma.columnToDateToRow[columnId];
   },
   updateItem: function(cid, newDate) {
     var model = forma.cidToModel[cid];
     if (!model) return;
-    var dateStr = newDate.format('MM-DD-YY');
-    var rows = forma.dateToData;
-    _.each(rows, function(models, date) {
-      rows[date] = _.without(models, model);
-    });
-    rows[dateStr] = rows[dateStr] || [];
-    rows[dateStr].push(model);
+    var dateStr = forma.dateKeyString(newDate);
+    var dateToRow = forma.dateToRow;
 
-    var oldDate = model.get(forma.currentDataKey);
-    model.set(forma.currentDataKey, oldDate.replace(/\d+\/\d+\/\d+/, newDate.format('MM/DD/YY')));
+    _.each(dateToRow, function(models, date) {
+      dateToRow[date] = _.without(models, model);
+    });
+
+    dateToRow[dateStr] = dateToRow[dateStr] || [];
+    dateToRow[dateStr].push(model);
+
+    var oldDate = model.get(forma.currentColumnId);
+    var updatedStr = oldDate.replace(/\d+\/\d+\/\d+/, newDate.format('MM/DD/YY'));
+    model.set(forma.currentColumnId, updatedStr);
 
     forma.main.render();
-
   },
   deleteItem: function(model) {
-    _.each(forma.rows, function(rows) {
-      _.each(rows, function(models, date) {
-        rows[date] = _.without(models, model);
+    _.each(forma.columnToDateToRow, function(dateToRow) {
+      _.each(dateToRow, function(models, date) {
+        dateToRow[date] = _.without(models, model);
       });
     });
     model.destroy();
     forma.main.render();
-
   },
   init: function() {
-    forma.dateOptions = {};
-    forma.rows = {};
+    forma.columnToDateToRow = {};
+    var dateColumns = {};
 
-    forma.idToColumn = _.reduce(data.columns, function(memo, item) {
-      memo[item.id] = item;
-      if (item.type == 'date') {
-        forma.dateOptions[item.id] = item.name;
-        forma.rows[item.id] = {};
+    forma.idToColumn = _.reduce(data.columns, function(memo, column) {
+      memo[column.id] = column;
+      if (column.type == 'date') {
+        dateColumns[column.id] = column.name;
+        forma.columnToDateToRow[column.id] = {};
       }
       return memo;
     }, {});
 
-    var dateKeys = _.keys(forma.dateOptions);
-
-    $('#option').html(forma.template('select')({
-      options: forma.dateOptions
-    }));
-
-    $('#createModal .modal-body').html(forma.template('create')({
-      options: forma.dateOptions
-    }));
-
-    forma.cidToModel = {};
-
-    forma.data = _.map(data.rows, function(row) {
+    forma.cidToModel = _.reduce(data.rows, function(memo, row) {
       var model = new forma.Models.DataRowModel(row);
-      forma.cidToModel[model.cid] = model;
-      return model;
-    });
+      memo[model.cid] = model;
+      return memo;
+    }, {});
 
-    _.each(forma.data, function(model) {
-      var item = model.toJSON();
+    var columnIds = _.keys(dateColumns);
+    _.each(forma.cidToModel, function(model) {
+      var row = model.toJSON();
+      _.each(columnIds, function(columnId) {
+        var date = row[columnId];
+        var dateToRow = forma.columnToDateToRow[columnId];
 
-      _.each(dateKeys, function(key) {
-        var date = item[key];
-        var row = forma.rows[key];
         if (date.indexOf(' ') > 0) {
           date = moment(date, 'MM/DD/YY hh:mma');
         } else {
           date = moment(date);
         }
-        var dateStr = date.format('MM-DD-YY');
-        row[dateStr] = row[dateStr] || [];
-        row[dateStr].push(model);
+        var dateStr = forma.dateKeyString(date);
+        dateToRow[dateStr] = dateToRow[dateStr] || [];
+        dateToRow[dateStr].push(model);
       });
     });
 
-    forma.changeDataKey(dateKeys[0]);
+    forma.changeColumnId(columnIds[0]);
 
-    var main = new forma.Views.ApplicationView({
+    forma.main = new forma.Views.ApplicationView({
       el: '#main',
       model: new Backbone.Model({
         moment: moment()
       })
-    });
-    main.render();
+    }).render();
 
-    forma.main = main;
+    $('#option').html(forma.template('select')({
+      options: dateColumns
+    }));
 
+    $('#createModal .modal-body').html(forma.template('create')({
+      options: dateColumns
+    }));
   },
   template: function(templateName) {
     var path = '/scripts/templates/' + templateName + '.html';
@@ -115,6 +110,6 @@ window.forma = {
   }
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
   forma.init();
 });
