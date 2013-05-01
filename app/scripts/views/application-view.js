@@ -35,9 +35,15 @@ forma.Views.ApplicationView = Backbone.View.extend({
     });
   },
   events: {
+    'change #option': 'onDateKeyChange',
     'click #prev': 'onPrevious',
     'click #next': 'onNext',
     'click #today': 'onToday'
+  },
+  onDateKeyChange: function (e) {
+    var key = $(e.currentTarget).val();
+    forma.changeDataKey(key);
+    this.model.trigger('change');
   },
   onPrevious: function (e) {
     this.model.get('moment').subtract('months', 1);
