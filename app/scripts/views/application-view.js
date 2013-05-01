@@ -31,7 +31,7 @@ forma.Views.ApplicationView = Backbone.View.extend({
     var numdays = (year % 4 == 0 && month == 2) ? 29 : this.monthToDay[month];
     var days = _.range(1, numdays + 1);
     return _.map(days, function(day) {
-      return moment(new Date([year, month, day]));
+      return moment(new Date([year, month + 1, day]));
     });
   },
   events: {
