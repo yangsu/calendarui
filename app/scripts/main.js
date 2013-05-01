@@ -55,6 +55,10 @@ window.forma = {
       options: forma.dateOptions
     }));
 
+    $('#createModal .modal-body').html(forma.template('create')({
+      options: forma.dateOptions
+    }));
+
     forma.cidToModel = {};
 
     forma.data = _.map(data.rows, function(row) {

@@ -17,7 +17,11 @@ forma.Views.CellView = Backbone.View.extend({
 
   },
   events: {
-    drop: 'onDrop'
+    drop: 'onDrop',
+    click: 'onClick'
+  },
+  onClick: function(e) {
+    console.log(e);
   },
   onDrop: function(e) {
     var cid = $(e.srcElement).data('cid');
