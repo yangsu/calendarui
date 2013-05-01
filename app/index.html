@@ -9,21 +9,22 @@
         <title></title>
         <meta name="description" content=""/>
         <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="styles/bootstrap.min.css"/>
         <link rel="stylesheet" href="styles/main.css"/>
 
     </head>
     <body>
     <div class="container" id="main">
         <div id="control">
-            <button id="today">Today</button>
-            <button id="prev">Previous</button>
-            <button id="next">Next</button>
+            <button id="today" class="btn">Today</button>
+            <button id="prev" class="btn">Previous</button>
+            <button id="next" class="btn">Next</button>
             <span id="info">
                 <span id="month"></span>
                 <span id="year"></span>
             </span>
-            <span>
-                <label for="datekey">Display by: </label>
+            <span class="pull-right">
+                Display by:
                 <select name="datekey" id="option"></select>
             </span>
         </div>
@@ -42,6 +43,7 @@
         <script src="scripts/vendor/lodash.min.js"></script>
         <script src="scripts/vendor/backbone-min.js"></script>
         <script src="scripts/vendor/moment.min.js"></script>
+        <script src="scripts/vendor/bootstrap.min.js"></script>
         <script src="scripts/data.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/models/application-model.js"></script>

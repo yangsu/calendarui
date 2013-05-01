@@ -8,7 +8,6 @@ forma.Views.CellView = Backbone.View.extend({
       .on('change:data', this.onSetData, this);
     this.items = [];
 
-    this.$el.html(this.template(this.model.toJSON()));
   },
   onSetData: function() {
     _.each(this.items, function(itemView) {
@@ -27,7 +26,7 @@ forma.Views.CellView = Backbone.View.extend({
     this.$('.events').append(els);
   },
   render: function () {
-    var that = this;
+    this.$el.html(this.template(this.model.toJSON()));
 
     _.each(this.items, function (item) {
       item.render();
