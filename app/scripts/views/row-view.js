@@ -16,8 +16,13 @@ forma.Views.rowView = Backbone.View.extend({
   setRowData: function(row) {
     if (row) {
       _.each(this.cells, function(cell, i) {
-        if (row[i])
-          cell.model.set('date', row[i]);
+        var date = row[i];
+        var dateStr = date.format('MM-DD-YY');
+        var data = forma.dateToData[dateStr];
+        cell.model.set({
+          date: date,
+          data: data
+        });
       });
     }
   },

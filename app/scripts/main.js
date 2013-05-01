@@ -6,7 +6,25 @@ window.forma = {
   Routers: {},
   Templates: {},
   init: function() {
-    console.log('Hello from Backbone!');
+    forma.idToColumn = _.reduce(data.columns, function(memo, item) {
+      memo[item.id] = item;
+      return memo;
+    }, {});
+
+    var dateKey = 914737;
+    dateKey = 52213;
+    forma.dateToData = _.reduce(data.rows, function(memo, item) {
+      var date = item[dateKey];
+      if (date.indexOf(' ') > 0) {
+        date = moment(date, 'MM/DD/YY hh:mma');
+      } else {
+        date = moment(date);
+      }
+      var dateStr = date.format('MM-DD-YY');
+      memo[dateStr] = memo[dateStr] || [];
+      memo[dateStr].push(item);
+      return memo;
+    }, {});
 
     var main = new forma.Views.applicationView({
       el: '#main',
@@ -15,6 +33,7 @@ window.forma = {
       })
     });
     main.render();
+
   },
   template: function(templateName) {
     var path = '/scripts/templates/' + templateName + '.html';

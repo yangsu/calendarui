@@ -3,7 +3,8 @@ forma.Views.cellView = Backbone.View.extend({
   template: forma.template('cell'),
   tagName: 'td',
   initialize: function (data) {
-    this.model.on('change', this.render, this);
+    this.model
+      .on('change', this.render, this);
   },
   render: function () {
     // console.log(this.model.toJSON());
